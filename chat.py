@@ -13,6 +13,7 @@ def encodeMsg( msg ):
 	return hmac.new( 'woshi328liucao', msg ).hexdigest()
 
 class ChatMsg:
+	''' the meesage type to communicte between ser and cli '''
 	def __init__( self, mtype, data=None, 
 			name=None, time=None ):
 		self.data = data
@@ -58,9 +59,6 @@ class ChatCache:
 
 	def putdata( self, addr, data ):
 		self.datain.put( (data, addr) )
-
-	def getaddrlist( self ):
-		return self.datapool.keys()
 
 	def setaddr( self, addr ):
 		if addr not in self.datapool:
@@ -144,6 +142,7 @@ class ChatSer( UDP ):
 		self.shutdown()
 
 class ChatBox:
+	''' display the message '''
 	def __init__( self, addr, printMethond ):
 		self.addr = addr
 		self.cache = cache
@@ -165,6 +164,7 @@ class ChatBox:
 		self.runflag=False
 
 class SerSearchSer:
+	''' search host '''
 	def __init__( self, broadcast, name, liveaddr , port=9130):
 		self.sock = socket.socket( socket.AF_INET, socket.SOCK_DGRAM )
 		self.sock.setsockopt( socket.SOL_SOCKET, socket.SO_REUSEADDR, 1 )
